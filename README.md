@@ -1,7 +1,7 @@
 # Kubernetes Flux CI Demo
 
 <p align="center">
-  <img src="https://img.shields.io/github/workflow/status/DefrostedTuna/kubernetes-flux-ci-demo/Master%20Workflow?style=flat-square" alt="Build Status">
+  <img src="https://img.shields.io/github/workflow/status/DefrostedTuna/kubernetes-flux-ci-demo/Build%20Branch/master?style=flat-square" alt="Build Status">
 </p>
 
 This is a project used to showcase the workflow and orchestration of an application from development to deployment.
