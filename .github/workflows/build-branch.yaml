@@ -39,8 +39,16 @@ jobs:
       - name: Authenticate with Docker Registry
         run: echo ${{ secrets.DCR_PASSWORD }} | docker login ${{ secrets.DCR_SERVER }} -u ${{ secrets.DCR_USERNAME }} --password-stdin
 
+      - name: Prep Container Details
+        id: details
+        run: |
+          branch=$(echo $GITHUB_REF | awk -F "/" '{print $3}')
+          sha=$(echo $GITHUB_SHA | cut -c -7)
+          ts=$(date +%s)
+          echo "::set-output name=IMAGE_TAG::${branch}-${sha}-${ts}"
+
       - name: Build Container
-        run: docker build -t ${{ secrets.DCR_SERVER }}/${{ secrets.DCR_IMAGE_NAME }}:$(echo $GITHUB_REF | awk -F "/" '{print $3}')-$(echo $GITHUB_SHA | cut -c -7) .
+        run: docker build -t ${{ secrets.DCR_SERVER }}/${{ secrets.DCR_IMAGE_NAME }}:${{ steps.details.outputs.IMAGE_TAG }} .
 
       - name: Push Container
-        run: docker push ${{ secrets.DCR_SERVER }}/${{ secrets.DCR_IMAGE_NAME }}:$(echo $GITHUB_REF | awk -F "/" '{print $3}')-$(echo $GITHUB_SHA | cut -c -7)
+        run: docker push ${{ secrets.DCR_SERVER }}/${{ secrets.DCR_IMAGE_NAME }}:${{ steps.details.outputs.IMAGE_TAG }} 
