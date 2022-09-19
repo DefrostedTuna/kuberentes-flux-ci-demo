@@ -40,7 +40,7 @@ jobs:
         run: echo ${{ secrets.DCR_PASSWORD }} | docker login ${{ secrets.DCR_SERVER }} -u ${{ secrets.DCR_USERNAME }} --password-stdin
 
       - name: Build Container
-        run: docker build -t ${{ secrets.DCR_SERVER }}/${{ secrets.DCR_IMAGE_NAME }}:$(echo $GITHUB_REF | awk -F "/" '{print $3}')-$(echo $GITHUB_SHA | cut -c -7) .
+        run: docker build -t ${{ secrets.DCR_SERVER }}/${{ secrets.DCR_IMAGE_NAME }}:$(echo $GITHUB_REF | awk -F "/" '{print $3}')-$(echo $GITHUB_SHA | cut -c -7)-$(date +%s) .
 
       - name: Push Container
-        run: docker push ${{ secrets.DCR_SERVER }}/${{ secrets.DCR_IMAGE_NAME }}:$(echo $GITHUB_REF | awk -F "/" '{print $3}')-$(echo $GITHUB_SHA | cut -c -7)
+        run: docker push ${{ secrets.DCR_SERVER }}/${{ secrets.DCR_IMAGE_NAME }}:$(echo $GITHUB_REF | awk -F "/" '{print $3}')-$(echo $GITHUB_SHA | cut -c -7)-$(date +%s)
