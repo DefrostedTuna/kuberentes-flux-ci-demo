@@ -23,5 +23,6 @@ Route::get('/', function () {
         'success' => true,
         'message' => 'OK!',
         'status_code' => 200,
+        'hostname' => gethostname(),
     ]);
 });
